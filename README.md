@@ -194,6 +194,49 @@ salvar_animacao(ani, 'onda_ultra.mp4', quality='ultra', fps=60)
 
 print("✓ Todos os vídeos salvos com sucesso!")
 ```
+## ⚠️ AVISO IMPORTANTE: Compatibilidade de Arquivos MP4
+
+### Problema Comum de Reprodução
+
+Ao gerar arquivos MP4 com FFmpeg, você pode encontrar vídeos que:
+- Fazem upload com sucesso no Google Drive
+- Reproduzem corretamente no navegador (web player)
+- **MAS** não funcionam em dispositivos móveis ou players locais
+- Travam após alguns segundos de reprodução
+- Apresentam erro de "arquivo corrompido"
+
+### Causa do Problema: Localização do "moov atom"
+
+O MP4 organiza seus dados usando estruturas chamadas "atoms" (átomos). O **"moov atom"** contém informações essenciais sobre a estrutura do vídeo (duração, codecs, tabela de quadros, etc.).
+
+**Comportamento padrão do FFmpeg:**
+- Coloca o "moov atom" no **final do arquivo**
+- Ideal para edição, problemático para reprodução
+- Players precisam ler o arquivo inteiro para encontrar o índice
+- Causa travamentos em dispositivos que não carregam o arquivo completo na memória
+
+### Solução: Usar `-movflags +faststart`
+
+Esta opção move o "moov atom" para o **início do arquivo**, otimizando para streaming e compatibilidade universal.
+
+#### Corrigir Arquivo Já Gerado (sem reencodar)
+```bash
+ffmpeg -i video_problematico.mp4 -c copy -movflags +faststart video_corrigido.mp4
+```
+OU (solução mais simples)
+
+1. Suba o vídeo para um Editor de Vídeo
+2. Subtraía 1 segundo ou edite minimamente conforme seu interesse
+3. Baixe o vídeo
+
+⟶ A maioria dos editores de vídeo, ao exportar, já otimiza o arquivo para reprodução, colocando o índice no começo, ou seja, o arquivo MP4 será "re-empacotado" pelo editor de vídeo. Ao fazer qualquer alteração (mesmo que pequena, como remover 1 segundo) e salvar novamente, o editor reescreverá a estrutura do arquivo, movendo o "moov atom" para o início automaticamente, sem você precisar usar o ``-movflags +faststart``.
+
+#### Gerar Arquivo Correto Desde o Início
+```bash
+ffmpeg -i entrada.mp4 -c:v libx264 -c:a aac -movflags +faststart saida.mp4
+```
+
+
 
 ## Tratamento de Erros
 
