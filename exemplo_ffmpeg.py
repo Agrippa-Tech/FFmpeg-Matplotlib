@@ -322,3 +322,15 @@ salvar_animacao(ani, 'sistema_heliocentrico_simples.mp4')
 #                 metadata={'artist': 'Seu Nome', 'title': 'Sistema Heliocêntrico'})
 
 print("\n✓ Processo concluído!")
+
+
+
+'''
+      db            .g8"""bgd      `7MM"""Mq.      `7MMF'    `7MM"""Mq.     `7MM"""Mq.           db
+     ;MM:         .dP'     `M        MM   `MM.       MM        MM   `MM.      MM   `MM.         ;MM:
+    ,V^MM.        dM'       `        MM   ,M9        MM        MM   ,M9       MM   ,M9         ,V^MM.
+   ,M  `MM        MM                 MMmmdM9         MM        MMmmdM9        MMmmdM9         ,M  `MM
+   AbmmmqMA       MM.    `7MMF'      MM  YM.         MM        MM             MM              AbmmmqMA
+  A'     VML      `Mb.     MM        MM   `Mb.       MM        MM             MM             A'     VML
+.AMA.   .AMMA.      `"bmmmdPY      .JMML. .JMM.    .JMML.    .JMML.         .JMML.         .AMA.   .AMMA.
+'''
