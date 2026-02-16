@@ -438,8 +438,17 @@ Veja [CONTRIBUTING.md](CONTRIBUTING.md) para detalhes.
 
 Licença MIT - veja [LICENSE](LICENSE) para detalhes.
 
-Copyright (c) 2026 Seu Nome
+Copyright (c) 2026 
 
+```
+      db            .g8"""bgd      `7MM"""Mq.      `7MMF'    `7MM"""Mq.     `7MM"""Mq.           db
+     ;MM:         .dP'     `M        MM   `MM.       MM        MM   `MM.      MM   `MM.         ;MM:
+    ,V^MM.        dM'       `        MM   ,M9        MM        MM   ,M9       MM   ,M9         ,V^MM.
+   ,M  `MM        MM                 MMmmdM9         MM        MMmmdM9        MMmmdM9         ,M  `MM
+   AbmmmqMA       MM.    `7MMF'      MM  YM.         MM        MM             MM              AbmmmqMA
+  A'     VML      `Mb.     MM        MM   `Mb.       MM        MM             MM             A'     VML
+.AMA.   .AMMA.      `"bmmmdPY      .JMML. .JMM.    .JMML.    .JMML.         .JMML.         .AMA.   .AMMA.
+```
 
 ---
 
@@ -533,8 +542,8 @@ pip install matplotlib-ffmpeg
 #### Via desenvolvimento
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/matplotlib-ffmpeg.git
-cd matplotlib-ffmpeg
+git clone https://github.com/Agrippa-Tech/FFmpeg-Matplotlib.git
+cd FFmpeg-Matplotlib
 
 # Instale em modo desenvolvimento
 pip install -e .
@@ -751,7 +760,7 @@ O módulo oferece 4 presets otimizados:
 
 **Observação:** Os valores de DPI são aplicados automaticamente quando `dpi=None` em SaveOptions.
 
-## 🔍 Tipos de Configuração Suportadas
+##  Tipos de Configuração Suportadas
 
 O sistema aceita diferentes formas de configuração:
 
