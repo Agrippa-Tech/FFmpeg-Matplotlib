@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=65.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ffmpeg-matplotlib"
+version = "2.1.0"
+description = "Simplified FFmpeg for Matplotlib"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+
+dependencies = [
+    "matplotlib>=3.1.0",
+    "numpy>=1.18.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

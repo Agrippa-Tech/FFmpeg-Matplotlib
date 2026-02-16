@@ -2,11 +2,11 @@
 
 Módulo Python reutilizável para configuração e salvamento automático de animações Matplotlib usando FFmpeg, com detecção inteligente de sistema, presets de qualidade, validações robustas e funcionalidades avançadas.
 
-## Sobre
+##  Sobre
 
 Este projeto oferece uma solução simplificada e profissional para salvar animações do Matplotlib em formato de vídeo. O módulo elimina a necessidade de configuração manual repetitiva do FFmpeg, fornecendo detecção automática do sistema, presets de qualidade, feedback visual durante o processo de renderização e validações inteligentes.
 
-## Implementações Recentes
+##  Implementações Recentes
 
 * **Modo Strict**: Fail-fast sem fallbacks para ambientes de produção
 * **Cache de Codecs**: Consulta otimizada com TTL (1 hora) e refresh manual
@@ -18,9 +18,9 @@ Este projeto oferece uma solução simplificada e profissional para salvar anima
 * **Thread-Safe**: Singleton e locks para ambientes concorrentes
 * **Context Manager**: Configurações temporárias com `temporary_config()`
 * **Path Resolution**: Sistema robusto de detecção de caminhos
-* **Regex Corrigido**: Suporte a codecs com hífens (h264-nvenc, hevc-nvenc)
+* **Regex Corrigido**: Suporte a codecs com hífens (h264_nvenc, hevc_nvenc)
 
-## Funcionalidades
+##  Funcionalidades
 
 ### Recursos Básicos
 * **Detecção Automática**: Identifica e configura o FFmpeg automaticamente no sistema
@@ -42,7 +42,7 @@ Este projeto oferece uma solução simplificada e profissional para salvar anima
 * **Cache Expirado**: TTL de 1 hora para cache de codecs
 * **Logging Configurável**: Sistema de logs detalhado com níveis ajustáveis
 
-## Estrutura do Módulo
+##  Estrutura do Módulo
 
 O módulo oferece:
 
@@ -55,14 +55,14 @@ O módulo oferece:
 7. **Validadores Separados**: Separação de concerns (Detector, Validator)
 8. **Exceções Customizadas**: Hierarquia clara de erros
 
-## Requisitos
+##  Requisitos
 
 * Python 3.8 ou superior
-* Matplotlib - `pip install matplotlib`
-* NumPy - `pip install numpy`
+* Matplotlib ≥ 3.1.0 - `pip install matplotlib`
+* NumPy ≥ 1.18.0 - `pip install numpy`
 * FFmpeg instalado no sistema
 
-## Instalação
+##  Instalação
 
 ### 1. Instalar FFmpeg
 
@@ -84,26 +84,36 @@ sudo apt update
 sudo apt install ffmpeg
 ```
 
-### 2. Instalar Dependências Python
+### 2. Instalar o Pacote
 
+#### Via pip (quando publicado)
 ```bash
-pip install matplotlib numpy
+pip install matplotlib-ffmpeg
 ```
 
-### 3. Adicionar o Módulo ao Projeto
-
+#### Via desenvolvimento
 ```bash
-# Copie o arquivo ffmpeg_config_improved.py para seu projeto
-# Ou adicione ao PYTHONPATH
+# Clone o repositório
+git clone https://github.com/seu-usuario/matplotlib-ffmpeg.git
+cd matplotlib-ffmpeg
+
+# Instale em modo desenvolvimento
+pip install -e .
 ```
 
-## Como Utilizar
+### 3. Instalar Dependências de Desenvolvimento
+
+```bash
+pip install -e ".[dev]"
+```
+
+##  Como Utilizar
 
 ### Modo Básico (Recomendado)
 
 ```python
 from matplotlib.animation import FuncAnimation
-from ffmpeg_config_improved import configurar_ffmpeg, salvar_animacao
+from ffmpeg_matplotlib import configurar_ffmpeg, salvar_animacao
 
 # 1. Configurar FFmpeg (uma vez no início)
 configurar_ffmpeg()
@@ -118,7 +128,7 @@ salvar_animacao(ani, 'minha_animacao.mp4')
 ### Modo com SaveOptions (Recomendado para Configurações Avançadas)
 
 ```python
-from ffmpeg_config_improved import FFmpegConfig, SaveOptions
+from ffmpeg_matplotlib import FFmpegConfig, SaveOptions
 
 # Configurar
 config = FFmpegConfig()
@@ -142,7 +152,7 @@ print(f"Salvo em: {caminho}")
 ### Modo Strict (Produção)
 
 ```python
-from ffmpeg_config_improved import configurar_ffmpeg, salvar_animacao
+from ffmpeg_matplotlib import configurar_ffmpeg, salvar_animacao
 
 # Modo strict: sem fallbacks, fail-fast
 configurar_ffmpeg(strict_mode=True)
@@ -161,7 +171,7 @@ salvar_animacao(
 ### Modo Avançado com Context Manager
 
 ```python
-from ffmpeg_config_improved import FFmpegConfig
+from ffmpeg_matplotlib import FFmpegConfig
 
 config = FFmpegConfig()
 
@@ -174,7 +184,7 @@ with config.temporary_config(ffmpeg_path='/tmp/ffmpeg', strict_mode=True):
 ### Estimativa de Tamanho de Arquivo
 
 ```python
-from ffmpeg_config_improved import DiskSpaceValidator, Quality
+from ffmpeg_matplotlib.config import DiskSpaceValidator, Quality
 
 # Estimar tamanho antes de renderizar
 tamanho_mb = DiskSpaceValidator.estimate_video_size(
@@ -202,7 +212,7 @@ else:
 ### Gerenciamento de Cache de Codecs
 
 ```python
-from ffmpeg_config_improved import FFmpegConfig
+from ffmpeg_matplotlib import FFmpegConfig
 
 config = FFmpegConfig()
 
@@ -236,7 +246,7 @@ salvar_animacao(
 ### Validação Manual de Codec
 
 ```python
-from ffmpeg_config_improved import FFmpegConfig
+from ffmpeg_matplotlib import FFmpegConfig
 
 config = FFmpegConfig()
 
@@ -252,12 +262,12 @@ else:
 salvar_animacao(ani, 'video.mp4', codec=codec)
 ```
 
-## Parâmetros e Opções
+##  Parâmetros e Opções
 
 ### SaveOptions - Todos os Parâmetros
 
 ```python
-from ffmpeg_config_improved import SaveOptions
+from ffmpeg_matplotlib.config import SaveOptions
 
 options = SaveOptions(
     fps=20,                      # Frames por segundo (int)
@@ -285,7 +295,7 @@ options = SaveOptions(
 * **dpi**: Resolução da renderização (72, 100, 150, 200, 300)
 * **codec**: 'libx264', 'libx265', 'h264_nvenc', 'mpeg4', etc.
 
-## Presets de Qualidade
+##  Presets de Qualidade
 
 O módulo oferece 4 presets otimizados:
 
@@ -302,7 +312,7 @@ O módulo oferece 4 presets otimizados:
 
 **Observação:** Os valores de DPI são aplicados automaticamente quando `dpi=None` em SaveOptions.
 
-## Tipos de Configuração Suportadas
+## 🔍 Tipos de Configuração Suportadas
 
 O sistema aceita diferentes formas de configuração:
 
@@ -312,7 +322,7 @@ O sistema aceita diferentes formas de configuração:
 * Configuração por variável de ambiente
 * Path resolution robusto (suporta `~`, caminhos relativos, etc.)
 
-## Características Técnicas
+##  Características Técnicas
 
 ### Classe `FFmpegConfig`
 
@@ -382,15 +392,17 @@ O sistema aceita diferentes formas de configuração:
 * `InsufficientDiskSpaceError`: Espaço em disco insuficiente
 * `StrictModeError`: Erro em modo strict (fallback não permitido)
 
-## Exemplo de Uso Completo
+##  Exemplo de Uso Completo
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from ffmpeg_config_improved import (
+from ffmpeg_matplotlib import (
     configurar_ffmpeg, 
-    salvar_animacao, 
+    salvar_animacao
+)
+from ffmpeg_matplotlib.config import (
     SaveOptions,
     DiskSpaceValidator,
     Quality
@@ -485,10 +497,11 @@ print("✓ Todos os vídeos salvos com sucesso!")
 print("="*60)
 ```
 
-## Exemplo Avançado: Validação de Codec com Fallback
+##  Exemplo Avançado: Validação de Codec com Fallback
 
 ```python
-from ffmpeg_config_improved import FFmpegConfig, SaveOptions
+from ffmpeg_matplotlib import FFmpegConfig
+from ffmpeg_matplotlib.config import SaveOptions
 
 config = FFmpegConfig()
 
@@ -520,7 +533,7 @@ options = SaveOptions(
 config.save_animation(ani, 'video_otimizado.mp4', options=options)
 ```
 
-## Comparação: Antes vs Depois
+##  Comparação: Antes vs Depois
 
 ### Código Tradicional (Repetitivo)
 
@@ -539,7 +552,7 @@ ani.save('video.mp4', writer=writer, dpi=150)
 ### Com Módulo FFmpeg Básico
 
 ```python
-from ffmpeg_config_improved import configurar_ffmpeg, salvar_animacao
+from ffmpeg_matplotlib import configurar_ffmpeg, salvar_animacao
 
 configurar_ffmpeg()  # Uma vez
 salvar_animacao(ani, 'video.mp4')  # Sempre
@@ -549,7 +562,8 @@ salvar_animacao(ani, 'video.mp4')  # Sempre
 ### Com Módulo FFmpeg Avançado
 
 ```python
-from ffmpeg_config_improved import configurar_ffmpeg, salvar_animacao, SaveOptions
+from ffmpeg_matplotlib import configurar_ffmpeg, salvar_animacao
+from ffmpeg_matplotlib.config import SaveOptions
 
 configurar_ffmpeg(strict_mode=True)
 
@@ -566,7 +580,7 @@ salvar_animacao(ani, 'video.mp4', options=options)
 
 **Redução de código: ~70% + Type Safety + Validações inteligentes**
 
-## Tratamento de Erros
+##  Tratamento de Erros
 
 O sistema possui validações para:
 
@@ -585,8 +599,8 @@ O sistema possui validações para:
 ### Exemplo de Tratamento
 
 ```python
-from ffmpeg_config_improved import (
-    FFmpegConfig,
+from ffmpeg_matplotlib import FFmpegConfig
+from ffmpeg_matplotlib.config import (
     FFmpegNotFoundError,
     InvalidCodecError,
     InsufficientDiskSpaceError
@@ -612,7 +626,7 @@ except Exception as e:
     print(f"Erro inesperado: {e}")
 ```
 
-## Limitações Conhecidas
+##  Limitações Conhecidas
 
 * Requer FFmpeg instalado no sistema
 * Não funciona com animações 3D complexas sem configuração adicional
@@ -624,7 +638,7 @@ except Exception as e:
 * Validação de espaço em disco é estimativa (overhead pode variar)
 * Thread-safety: singleton global pode causar race conditions em testes paralelos
 
-## Fluxo de Trabalho Recomendado
+##  Fluxo de Trabalho Recomendado
 
 1. **Configuração Inicial**: Configure FFmpeg uma vez no início do projeto
 2. **Desenvolvimento**: Teste sua animação com `plt.show()`
@@ -636,22 +650,39 @@ except Exception as e:
 8. **Compartilhamento**: Use `quality='medium'` para arquivos menores
 9. **Produção**: Use `strict_mode=True` e `check_disk_space=True`
 
-## Estrutura de Arquivos
+##  Estrutura de Arquivos do Projeto
 
 ```
-projeto-animacao/
+ffmpeg-matplotlib/
 │
-├── ffmpeg_config_improved.py     # Módulo principal (versão melhorada)
-├── exemplo_uso_ffmpeg.py         # Exemplo de uso básico
-├── README_FFMPEG.md              # Documentação completa
-└── videos/                       # Diretório de saída (criado automaticamente)
-    ├── animacao_preview.mp4      # Preview de baixa qualidade
-    ├── animacao_web.mp4          # Qualidade média
-    ├── animacao_final.mp4        # Alta qualidade
-    └── animacao_ultra.mp4        # Máxima qualidade
+├── src/
+│   └── ffmpeg_matplotlib/
+│       ├── __init__.py          # Exports principais
+│       ├── config.py            # Módulo principal
+│       └── py.typed             # Marker para type hints
+│
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py              # Fixtures compartilhadas
+│   ├── test_config.py           # Testes de configuração
+│   └── test_detector.py         # Testes de detecção
+│
+├── examples/
+│   ├── basic_usage.py           # Exemplo básico
+│   └── heliocentric_system.py   # Exemplo avançado
+│
+├── .github/
+│   └── workflows/
+│       └── tests.yml            # CI/CD GitHub Actions
+│
+├── pyproject.toml               # Configuração do projeto
+├── setup.py                     # Setup script
+├── README.md                    # Este arquivo
+├── LICENSE                      # Licença MIT
+└── .gitignore                   # Arquivos ignorados
 ```
 
-## Solução de Problemas Comuns
+##  Solução de Problemas Comuns
 
 ### Erro: "FFmpeg não detectado"
 
@@ -661,7 +692,7 @@ import subprocess
 subprocess.run(['ffmpeg', '-version'])
 
 # Se não funcionar, configure manualmente
-from ffmpeg_config_improved import configurar_ffmpeg
+from ffmpeg_matplotlib import configurar_ffmpeg
 configurar_ffmpeg(r'C:\caminho\completo\para\ffmpeg.exe')
 ```
 
@@ -669,7 +700,7 @@ configurar_ffmpeg(r'C:\caminho\completo\para\ffmpeg.exe')
 
 ```python
 # Sempre chame configurar_ffmpeg() antes de salvar
-from ffmpeg_config_improved import configurar_ffmpeg
+from ffmpeg_matplotlib import configurar_ffmpeg
 configurar_ffmpeg()  # ← Não esqueça desta linha
 salvar_animacao(ani, 'video.mp4')
 ```
@@ -678,7 +709,7 @@ salvar_animacao(ani, 'video.mp4')
 
 ```python
 # Verifique codecs disponíveis
-from ffmpeg_config_improved import obter_config_global
+from ffmpeg_matplotlib import obter_config_global
 config = obter_config_global()
 codecs = config.get_available_codecs()
 print(f"Codecs disponíveis: {sorted(codecs)}")
@@ -702,12 +733,12 @@ salvar_animacao(ani, 'video.mp4', quality='low', fps=15)
 ```python
 # Cache de codecs expirou ou detecção falhou
 # Forçar refresh
-from ffmpeg_config_improved import obter_config_global
+from ffmpeg_matplotlib import obter_config_global
 config = obter_config_global()
 config.refresh_codec_cache()
 
 # Ou usar modo strict (falha ao invés de fallback)
-from ffmpeg_config_improved import configurar_ffmpeg
+from ffmpeg_matplotlib import configurar_ffmpeg
 configurar_ffmpeg(strict_mode=True)
 ```
 
@@ -718,7 +749,7 @@ configurar_ffmpeg(strict_mode=True)
 salvar_animacao(ani, 'video.mp4', quality='medium', fps=15, dpi=100)
 
 # Ou estime antes
-from ffmpeg_config_improved import DiskSpaceValidator, Quality
+from ffmpeg_matplotlib.config import DiskSpaceValidator, Quality
 tamanho = DiskSpaceValidator.estimate_video_size(60, 30, Quality.LOW)
 print(f"Low: {tamanho:.1f} MB")
 ```
@@ -738,7 +769,7 @@ salvar_animacao(ani, 'video.mp4', verbose=False)
 
 ```python
 # Verifique se sua GPU/drivers suportam
-from ffmpeg_config_improved import FFmpegConfig
+from ffmpeg_matplotlib import FFmpegConfig
 config = FFmpegConfig()
 
 if config.validate_codec('h264_nvenc', strict=False):
@@ -749,9 +780,9 @@ else:
     salvar_animacao(ani, 'video.mp4', codec='libx264')
 ```
 
-## Troubleshooting: Problema de Reprodução 
+##  Troubleshooting: Problema de Reprodução 
 
-### ⚠️ Vídeos MP4 que não reproduzem ou crasham
+###  Vídeos MP4 que não reproduzem ou crasham
 
 **Sintoma:**
 - Vídeo faz upload no Google Drive com sucesso
@@ -785,7 +816,7 @@ ffmpeg -i entrada.mp4 -c:v libx264 -c:a aac -movflags +faststart saida.mp4
 
 **Nota:** O módulo atual não adiciona `-movflags +faststart` automaticamente. Para adicionar esse suporte, seria necessário estender a classe `FFMpegWriter` ou usar `extra_args` no writer (se suportado pela versão do Matplotlib).
 
-## Informações Adicionais
+##  Informações Adicionais
 
 ### Formatos de Vídeo Suportados
 
@@ -821,17 +852,17 @@ O módulo é thread-safe, mas tenha cuidado ao:
 
 ```python
 # Em testes, limpar singleton
-from ffmpeg_config_improved import FFmpegConfigSingleton
+from ffmpeg_matplotlib.config import FFmpegConfigSingleton
 FFmpegConfigSingleton.reset_instance()
 
 # Ou usar instância isolada
-from ffmpeg_config_improved import FFmpegConfig
+from ffmpeg_matplotlib import FFmpegConfig
 config = FFmpegConfig()  # Instância própria, não singleton
 ```
 
-## Contribuições
+##  Contribuições
 
-Sugestões de melhorias e contribuições são bem-vindas. Áreas de interesse:
+Sugestões de melhorias e contribuições são bem-vindas! Áreas de interesse:
 
 * Suporte a `-movflags +faststart` automático
 * Mais presets de qualidade (4K, 8K, mobile)
@@ -845,7 +876,7 @@ Sugestões de melhorias e contribuições são bem-vindas. Áreas de interesse:
 * Pipeline de pós-processamento (filters, watermarks)
 * Suporte a áudio sincronizado
 
-## Casos de Uso
+##  Casos de Uso
 
 * **Cientistas de Dados**: Visualizações animadas de análises temporais
 * **Pesquisadores**: Animações de simulações científicas
@@ -860,11 +891,12 @@ Sugestões de melhorias e contribuições são bem-vindas. Áreas de interesse:
 
 Simplificar o processo de salvamento de animações Matplotlib através da automação da configuração do FFmpeg, permitindo que desenvolvedores e pesquisadores foquem na criação de visualizações ao invés de configurações técnicas repetitivas, com validações robustas, type-safety e recursos avançados para ambientes de produção.
 
-## Licença
+##  Licença
 
-Este módulo é dedicado à humanidade, aos meus estudos pessoais e a todos que desejam criar visualizações animadas de forma simples e eficiente. Sinta-se livre para utilizar, estudar, modificar e contribuir com este material.
+Este módulo é dedicado à comunidade open source, aos meus estudos pessoais e a todos que desejam criar visualizações animadas de forma simples e eficiente. Sinta-se livre para utilizar, estudar, modificar e contribuir com este material.
 
 ---
-**Versão:** 2.0 
+
+**Versão:** 2.1.0  
 **Data:** 2026  
 **Compatibilidade:** Python 3.8+, Matplotlib 3.1+, FFmpeg 3.4+
