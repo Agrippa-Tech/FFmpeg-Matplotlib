@@ -9,8 +9,8 @@ Este projeto oferece uma solução simplificada e profissional para salvar anima
 ##  Implementações Recentes
 # ffmpeg-matplotlib
 
-[![Testes](https://img.shields.io/badge/testes-11%20passando-brightgreen)](https://github.com/seu-usuario/matplotlib-ffmpeg)
-[![Cobertura](https://img.shields.io/badge/cobertura-42%25-yellow)](https://github.com/seu-usuario/matplotlib-ffmpeg)
+[![Testes](https://img.shields.io/badge/testes-11%20passando-brightgreen)](https://github.com/Agrippa-Tech/ffmpeg-matplotlib)
+[![Cobertura](https://img.shields.io/badge/cobertura-42%25-yellow)](https://github.com/Agrippa-Tech/ffmpeg-matplotlib)
 [![Python](https://img.shields.io/badge/python-3.8+-blue)](https://www.python.org/)
 [![Licença](https://img.shields.io/badge/licença-MIT-green)](LICENSE)
 
@@ -267,7 +267,7 @@ salvar_animacao(ani, 'video.mp4', codec=codec, bitrate=bitrate)
 
 ```bash
 # Clonar repositório
-git clone https://github.com/seu-usuario/matplotlib-ffmpeg.git
+git clone https://github.com/Agrippa-Tech/ffmpeg-matplotlib.git
 cd matplotlib-ffmpeg
 
 # Instalar em modo desenvolvimento
