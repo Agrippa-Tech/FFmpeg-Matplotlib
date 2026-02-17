@@ -13,6 +13,8 @@ Este projeto oferece uma solução simplificada e profissional para salvar anima
 [![Cobertura](https://img.shields.io/badge/cobertura-42%25-yellow)](https://github.com/Agrippa-Tech/ffmpeg-matplotlib)
 [![Python](https://img.shields.io/badge/python-3.8+-blue)](https://www.python.org/)
 [![Licença](https://img.shields.io/badge/licença-MIT-green)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/matplotlib-ffmpeg)](https://pypi.org/project/ffmpeg-matplotlib/)
+[![Downloads](https://img.shields.io/pypi/dm/matplotlib-ffmpeg)](https://pypi.org/project/ffmpeg-matplotlib/)
 
 Integração simplificada do FFmpeg para animações Matplotlib com detecção automática, presets de qualidade e validação robusta.
 
