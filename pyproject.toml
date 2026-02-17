@@ -1,15 +1,51 @@
 [build-system]
-requires = ["setuptools>=65.0"]
+requires = ["setuptools>=65.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "ffmpeg-matplotlib"
 version = "2.1.0"
-description = "Simplified FFmpeg for Matplotlib"
+description = "Simplified FFmpeg integration for Matplotlib animations with auto-detection, quality presets and robust validation"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
-
+authors = [
+    {name = "Agrippa", email = "sillentiumoccultum@gmail.com"}
+]
+maintainers = [
+    {name = "Agrippa", email = "sillentiumoccultum@gmail.com"}
+]
+keywords = [
+    "matplotlib",
+    "ffmpeg",
+    "animation",
+    "video",
+    "visualization",
+    "scientific-computing",
+    "rendering",
+    "mp4"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Typing :: Typed",
+]
 dependencies = [
     "matplotlib>=3.1.0",
     "numpy>=1.18.0",
@@ -17,10 +53,75 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=7.0",
-    "pytest-cov>=4.0",
-    "black>=23.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
 ]
+docs = [
+    "sphinx>=6.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Agrippa-Tech/FFmpeg-Matplotlib"
+Documentation = "https://github.com/Agrippa-Tech/FFmpeg-Matplotlib#readme"
+Repository = "https://github.com/Agrippa-Tech/FFmpeg-Matplotlib"
+"Bug Tracker" = "https://github.com/Agrippa-Tech/FFmpeg-Matplotlib/issues"
+Changelog = "https://github.com/Agrippa-Tech/FFmpeg-Matplotlib/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+ffmpeg_matplotlib = ["py.typed"]
+
+# ============================================================
+# Black
+# ============================================================
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+
+# ============================================================
+# isort
+# ============================================================
+[tool.isort]
+profile = "black"
+line_length = 100
+
+# ============================================================
+# pytest
+# ============================================================
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+addopts = "-ra -q"
+
+# ============================================================
+# coverage
+# ============================================================
+[tool.coverage.run]
+source = ["src/ffmpeg_matplotlib"]
+omit = ["*/tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+
+# ============================================================
+# mypy
+# ============================================================
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
